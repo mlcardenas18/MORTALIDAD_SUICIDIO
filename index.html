@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<head>
+  <title>Mortalidad de Suicidio 2010 a 2016</title>
+  <meta charset="utf-8">
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@4.2.0/build/vega.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc6/build/vega-lite.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.19.2/build/vega-embed.js"></script>
+
+  <style media="screen">
+   /*Se adiciona espacios entre los enlaces Vega-Embed */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+    <h1>Mortalidad Suicidio 2010 A 2016 en Colombia</h1>
+    <h2>Un fenómeno que afecta la población más joven y mayor medida a los Hombres</h2>
+    <p>Las siguientes visualizaciones evidencian el comportamiento del suicidio en Colombia, según información suministrada por el Ministerio de Salud y Protección Social, por medio de la página de datos abiertos <A href="https://datos.gov.co/browse?q=Mortalidad%20Suicidio%202010%20A%202016&sortBy=relevance">Mortalidad Suicidio 2010 A 2016</A> que contiene la relación de 424 suicidios. 
+        <br></br> Las visualizaciones número 1 y 2 presentan en la parte inferior un slider que puede deslizar para explorra la información por años.
+    </p>
+  <!-- contendor de la visualización  -->
+<table style="width:80%" border=0>
+    <tr>
+    <td><div id="vis1"></div>
+        <td><h2>Insights</h2>
+        <p>1. Al observar el resumen del promedio de edad de los sucidios ocurridos desde el año 2010 al 2016 en Colombia, la mayoría se concentran entre las edades menores de 18 años a 47 años. Las edades más productivas en la población.<br></br>            
+            2. En el año 2011 se incrementó el suicidio de jóvenes respecto al año anterior.<br></br> 
+            3. En los años 2011 y 2016 se presentaron  suicidos en nuestra población de adultos mayores.<br></br> 
+         Según el observatorio "Así vamos en Salud", la mayoría de los suicidios pueden ser curados, tratados o prevenidos y es la décima causa en todo el mundo que genera más años de vida pérdidos.
+        </p>
+        </td>
+    </td> 
+    </tr>
+    <tr> 
+    <td><div id="vis2"></div></td> 
+    <td>
+        <p>La tendencia de suicidios desde el año 2010 tiende a permanecer constante, sin embargo, se observa un incremento sustancial en el año 2015. Adicionalmente, el número de casos presentados pasa de 62 en el año 2010 a 73 en el año 2015 y se proyecta 69 para el año 2019.<br></br>
+        En relación a los datos presentados, el observatorio "Así vamos en Salud", indica que el suicido en nuestro país representa la cuarta forma de violencia con una tasa de mortalidad en el año 2016 del 4,74 por cada 100.000 habitantes.
+        
+        </p>
+        </td>
+    </tr>
+    <tr>
+     <td><div id="vis3"></div></td>
+    <td>
+        <p>Al explorar el comportamiento de suicidios por sexo, se evidencia que el número de suicidios de hombres es sustancialmente superior al de mujeres, cómo lo muestra la visualización al comparar las dos líneas (Rosado - Mujer, Azul- Hombre).<br></br>.
+        Lo anterior se evidencia principalmente, en el año 2016 donde la diferencia de casos de suicidio es de uno sexo Femenino a 8 sexo Masculino.
+        Lo anterior, es ratificado por el observatorio "Así vamos en Salud", al señalar que por cada mujer que suicida cinco hombres se suicidan en Colombia.
+        
+        </p>
+     </td>
+    </tr>
+ </table>
+    
+
+  <script>
+  // Se especifica las características de la visualización en el lenguaje de marcas en VegaLite
+  
+var vlSpec1 = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json", 
+     "title": " N1. Comportamiento edad promedio de los sucidios",
+    "data": {"url": "https://www.datos.gov.co/resource/uq76-pti2.json", 
+    "format": {"type": "json"}},
+    "transform": [{"calculate": "year(datum.fecha_def)", "as": "Year"}],
+    "layer": [{
+    "selection": {
+      "Filtrar": {
+        "type": "single", "fields": [ "Year"],
+        "bind": {
+          //"Cylinders": {"input": "range", "min": 3, "max": 8, "step": 1},
+          "Year": {"input": "range", "min": 2010, "max": 2016, "step": 1}
+        }
+      }
+    },
+      
+    //"transform": [{"filter": "datum.ano == 2011"}],
+    "width": 650,
+    "height": 350,
+    "transform": [{"filter": {"selection": "Filtrar"}}],
+    "mark": {"type": "line","color": "steelblue", "point": {"color": "orange"}},
+    "encoding": {
+     "x": {"timeUnit": "yearmonth", "field": "fecha_def", "type": "temporal","sort": "ascending",
+    "axis": {
+           "title": "Periodo de deceso"
+            }
+          },
+     "y": {"aggregate": "mean", "field": "edad", "type": "quantitative",
+     "axis": {
+          "title": "Edad Promedio"
+        } 
+          }
+     },
+    "config": {"axisY": {"minExtent": 30},"axisX": {"maxExtent": 30}}
+    }
+]
+  };
+var vlSpec2 =  {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json", 
+    "title": "N2. Tendencia del número de decesos",
+    "data": {"url": "https://raw.githubusercontent.com/mlcardenas18/MORTALIDAD_SUICIDIO/master/data/mortalidad_decesos_suicidio_totaltendencia_2010_2019.json", 
+    "format": {"type": "json" }},
+    "width": 650,
+    "height": 200,
+    "mark": {"type": "line","color": "teal", "point": {"color": "coral"}},
+    "encoding": {
+     "x": {"timeUnit": "year", "field": "fecha", "type": "temporal","sort": "ascending",
+    "axis": {
+           "title": "Periodo de deceso"
+            }
+          },
+     "y": {"field": "nro_decesos", "type": "quantitative",
+     "axis": {
+          "title": "Número de suicidios"
+        } 
+          }
+     },
+    "config": {"axisY": {"minExtent": 30},"axisX": {"maxExtent": 30}}
+    };
+var vlSpec3 = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json", 
+     "title": "N3. Comportamiento suicidios por sexo",
+    "data": {"url": "https://www.datos.gov.co/resource/uq76-pti2.json", 
+    "format": {"type": "json"}},
+    "transform": [{"calculate": "year(datum.fecha_def)", "as": "Year"},
+                 ],
+    "layer": [{
+    "selection": {
+      "Filtrar": {
+        "type": "single", "fields": [ "Year"],
+        "bind": {
+          //"Cylinders": {"input": "range", "min": 3, "max": 8, "step": 1},
+          "Year": {"input": "range", "min": 2010, "max": 2016, "step": 1}
+        }
+      }
+    },
+      
+    //"transform": [{"filter": "datum.ano == 2011"}],
+    "width": 650,
+    "height": 350,
+    "transform": [{"filter": {"selection": "Filtrar"}}],
+    "mark": {"type": "line", "point": {"color": null}},
+    "encoding": {
+     "x": {"timeUnit": "yearmonth", "field": "fecha_def", "type": "temporal","sort": "ascending",
+    "axis": {
+           "title": "Periodo de deceso"
+            },
+          "scale": {"rangeStep": 25}
+          },
+     "y": {"aggregate": "count",  "type": "quantitative", 
+     "axis": {
+          "title": "Decesos"
+          },
+    // "stack":  "normalize"
+   
+           },
+      "color": {
+      "field": "sexo",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Masculino","Femenino"],
+        "range": ["#659CCA","#EA98D2"]
+      },
+      "legend": {"title": "Sexo"}
+    }
+          
+     },
+    "config": {"axisY": {"minExtent": 30},"axisX": {"maxExtent": 30}},
+    //"color": {"field":"sexo", "type":"nominal", "scale":{"scheme": "category10"}}
+   
+    }
+]
+  };
+  // Inserta la visualzación en el contendor con el id 'vis1'
+  vegaEmbed("#vis1", vlSpec1);
+  vegaEmbed("#vis2", vlSpec2);
+  vegaEmbed("#vis3", vlSpec3);
+  </script>
+<td>
+<tr></tr>
+<tr></tr>
+<h1>FrameWork de Tamara</h1>
+<h2>What</h2>
+<h2>Why</h2>
+<h2>How</h2>
+</td>
+</body>
+</html>
