@@ -1,0 +1,42 @@
+[
+  {
+    "fecha": "31/12/2010",
+    "nro_decesos": 62
+  },
+  {
+    "fecha": "31/12/2011",
+    "nro_decesos": 59
+  },
+  {
+    "fecha": "31/12/2012",
+    "nro_decesos": 54
+  },
+  {
+    "fecha": "31/12/2013",
+    "nro_decesos": 55
+  },
+  {
+    "fecha": "31/12/2014",
+    "nro_decesos": 56
+  },
+  {
+    "fecha": "31/12/2015",
+    "nro_decesos": 73
+  },
+  {
+    "fecha": "31/12/2016",
+    "nro_decesos": 65
+  },
+  {
+    "fecha": "31/12/2017",
+    "nro_decesos": 66
+  },
+  {
+    "fecha": "31/12/2018",
+    "nro_decesos": 68
+  },
+  {
+    "fecha": "31/12/2019",
+    "nro_decesos": 69
+  }
+]
