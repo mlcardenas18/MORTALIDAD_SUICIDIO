@@ -16,7 +16,7 @@
 </head>
 <body>
     <h1>Mortalidad Suicidio 2010 A 2016 en Colombia</h1>
-    <h2>Un fenómeno que afecta la población más joven y mayor medida a los Hombres</h2>
+    <h2>Un fenómeno que afecta la población más joven y en mayor medida a los Hombres</h2>
     <p>Las siguientes visualizaciones evidencian el comportamiento del suicidio en Colombia, según información suministrada por el Ministerio de Salud y Protección Social, por medio de la página de datos abiertos <A href="https://datos.gov.co/browse?q=Mortalidad%20Suicidio%202010%20A%202016&sortBy=relevance">Mortalidad Suicidio 2010 A 2016</A> que contiene la relación de 424 suicidios. 
         <br></br> Las visualizaciones número 1 y 2 presentan en la parte inferior un slider que puede deslizar para explorra la información por años.
     </p>
@@ -25,9 +25,9 @@
     <tr>
     <td><div id="vis1"></div>
         <td><h2>Insights</h2>
-        <p>1. Al observar el resumen del promedio de edad de los sucidios ocurridos desde el año 2010 al 2016 en Colombia, la mayoría se concentran entre las edades menores de 18 años a 47 años. Las edades más productivas en la población.<br></br>            
+        <p>1. Al observar el resumen del promedio de edad de los suicidios ocurridos desde el año 2010 al 2016 en Colombia, la mayoría se concentran entre las edades menores de 18 años a 47 años. Las edades más productivas en la población.<br></br>            
             2. En el año 2011 se incrementó el suicidio de jóvenes respecto al año anterior.<br></br> 
-            3. En los años 2011 y 2016 se presentaron  suicidos en nuestra población de adultos mayores.<br></br> 
+            3. En los años 2011 y 2016 se presentaron  suicidios en nuestra población de adultos mayores.<br></br> 
          Según el observatorio "Así vamos en Salud", la mayoría de los suicidios pueden ser curados, tratados o prevenidos y es la décima causa en todo el mundo que genera más años de vida pérdidos.
         </p>
         </td>
@@ -46,7 +46,7 @@
      <td><div id="vis3"></div></td>
     <td>
         <p>Al explorar el comportamiento de suicidios por sexo, se evidencia que el número de suicidios de hombres es sustancialmente superior al de mujeres, cómo lo muestra la visualización al comparar las dos líneas (Rosado - Mujer, Azul- Hombre).<br></br>.
-        Lo anterior se evidencia principalmente, en el año 2016 donde la diferencia de casos de suicidio es de uno sexo Femenino a 8 sexo Masculino.
+        El comportamiento se evidencia principalmente, en el año 2016 donde la diferencia de casos de suicidio es de uno sexo Femenino a 8 sexo Masculino.
         Lo anterior, es ratificado por el observatorio "Así vamos en Salud", al señalar que por cada mujer que suicida cinco hombres se suicidan en Colombia.
         
         </p>
@@ -182,8 +182,90 @@ var vlSpec3 = {
 <tr></tr>
 <h1>FrameWork de Tamara</h1>
 <h2>What</h2>
+<p>
+DataSet: Tipo Temporal: Presenta todos los registros de suicidios en Colombia desde el año 2010 al 2016. 424 registros<br></br>	
+Atributo<br></br>	
+COD_DPTO	Categórico<br></br>
+COD_MUNIC	Categórico<br></br>
+A_DEFUN	Categórico<br></br>
+SIT_DEFUN	Categórico<br></br>
+TIPO_DEFUN	Categórico<br></br>
+FECHA_DEF	Ordenado - Ordinal<br></br>
+ANO	Ordenado - Ordinal<br></br>
+MES	Ordenado - Ordinal - Cíclico<br></br>
+HORA	Ordenado - Ordinal - Cíclico<br></br>
+MINUTOS	Ordenado - Ordinal - Cíclico<br></br>
+SEXO	Categórico<br></br>
+FECHA_NAC	Ordenado - Ordinal<br></br>
+EST_CIVIL	Categórico<br></br>
+EDAD	Ordenado - Cuantitativo - Secuencial<br></br>
+NIVEL_EDU	Categórico<br></br>
+OCUPACION	Categórico<br></br>
+CODPTORE	Categórico<br></br>
+CODMUNRE	Categórico<br></br>
+AREA_RES	Categórico<br></br>
+SEG_SOCIAL	Categórico<br></br>
+COMOCUHEC	Categórico<br></br>
+Derivado:<br></br>	
+	Edad promedio<br></br>
+	Fecha(Anual)<br></br>
+	nro_decesos  (Tendencia)<br></br>
+</p>
 <h2>Why</h2>
+<p>
+(Actions, Targets)<br></br>
+Tarea principal:<br></br>
+<b>Resumir</b> las <b>características</b> en el tiempo con relación con la edad promedio de los casos de suicidio en Colombia.
+<b>Summarize</b>, <b>Features</b> of the attributes: Edad (promedio) for Date.<br></br>
+Tarea secundaria:<br></br>
+<b>Explorar</b>  e <b>identificar</b> las característica en relación con la edad promedio de los casos de suicidio en Colombia por Año.
+<b>Explore/Identify</b>, Features of the attributes: Edad (promedio) for Year.<br></br>
+Tarea principal:<br></br>
+<b>Resumir</b> la <b>tendencia</b> del número de suicidios en Colombia.<br></br>
+<b>Summarize</b>, <b>Trend</b> of the attributes: nro_decesos<br></br>
+Tarea Principal:<br></br>
+<b>Compara</b>r las <b>características</b> en el tiempo con relación al número de suicidios por sexo<br></br>
+<b>Compare/Features</b> of the attributes:Count(decesos) for sexo<br></br>
+
+</p>
 <h2>How</h2>
+<p>
+
+Idiom: Line chart<br></br>
+Marcas: line/point<br></br>
+Canales:<br></br>
+Magnitud Channel -> Ordered Attributes -> Posición en escala común<br></br>
+Arrange -> Express, posición alineación vertical para el atributo Edad (promedio)<br></br>
+
+Separate/order en la región horizontal por el atributo llave (fecha_def).<br></br>
+Map : Color Hue <br></br>
+Manipulate: Select, Navigate<br></br>
+Facet: Superimpose<br></br>
+Reduce: Filter<br></br>
+
+Idiom: Line chart<br></br>
+Marcas: line/point<br></br>
+Canales:<br></br>
+Magnitud Channel -> Ordered Attributes -> Posición en escala común<br></br>
+Arrange -> Express, posición alineación vertical para el atributo Edad (nro_decesos)<br></br>
+
+Separate/order en la región horizontal por el atributo llave (fecha).<br></br>
+Map : Color Hue <br></br>
+Facet: Superimpose<br></br>
+
+Idiom: Line chart<br></br>
+Marcas: line/point<br></br>
+Canales:<br></br>
+Magnitud Channel -> Ordered Attributes -> Posición en escala común<br></br>
+Arrange -> Express, posición alineación vertical para el atributo (conteo decesos)<br></br>
+
+Separate/order en la región horizontal por el atributo llave (fecha_def).<br></br>
+Map : Color Hue  para el atributo sexo<br></br>
+Manipulate: Select, Navigate<br></br>
+Facet: Superimpose<br></br>
+Reduce: Filter<br></br>
+
+</p>
 </td>
 </body>
 </html>
